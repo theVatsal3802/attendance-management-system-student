@@ -31,6 +31,8 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
         const Duration(seconds: 3),
         (_) => checkEmailVerified(),
       );
+    } else {
+      Navigator.of(context).pushReplacementNamed(DashBoardScreen.routeName);
     }
   }
 
@@ -128,12 +130,6 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                     padding: const EdgeInsets.all(10),
                     child: Column(
                       children: [
-                        VerticalSizedBox(height: height * 0.2),
-                        Image.asset(
-                          "assets/images/logo.png",
-                          height: 200,
-                          width: 200,
-                        ),
                         VerticalSizedBox(height: height * 0.1),
                         Text(
                           "A Verification Email has been sent to your provided Email ID.",

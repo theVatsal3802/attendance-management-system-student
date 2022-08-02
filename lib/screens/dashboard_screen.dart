@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:attendance_iiitkota/helpers/date_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:geolocator/geolocator.dart';
 
@@ -25,6 +29,76 @@ class DashBoardScreen extends StatefulWidget {
 }
 
 class _DashBoardScreenState extends State<DashBoardScreen> {
+  late StreamSubscription subscription;
+  bool isConnected = false;
+  bool isAlertSet = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getConnectivity();
+  }
+
+  void showDialogBox() {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text(
+            "No Connection",
+            textScaleFactor: 1,
+          ),
+          content: const Text(
+            "Please connect to internet or Wi-Fi",
+            textScaleFactor: 1,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () async {
+                Navigator.of(context).pop();
+                setState(() {
+                  isAlertSet = false;
+                });
+                isConnected = await InternetConnectionChecker().hasConnection;
+                if (!isConnected) {
+                  showDialogBox();
+                  setState(() {
+                    isAlertSet = true;
+                  });
+                }
+              },
+              child: const Text(
+                "OK",
+                textScaleFactor: 1,
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void getConnectivity() {
+    subscription = Connectivity().onConnectivityChanged.listen(
+      (result) async {
+        isConnected = await InternetConnectionChecker().hasConnection;
+        if (!isConnected && isAlertSet == false) {
+          showDialogBox();
+          setState(() {
+            isAlertSet = true;
+          });
+        }
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    subscription.cancel();
+  }
+
   User? user = FirebaseAuth.instance.currentUser;
   String currentAddress = "";
   Position? currentPosition;

@@ -46,16 +46,13 @@ class MyApp extends StatelessWidget {
           onSurface: Colors.grey.shade700,
         ),
       ),
-      home: StreamBuilder<User?>(
+      home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const SplashScreen();
-          } else if (snapshot.hasData &&
-              snapshot.data!.emailVerified == false) {
+          } else if (snapshot.hasData) {
             return const VerifyEmailScreen();
-          } else if (snapshot.hasData && snapshot.data!.emailVerified == true) {
-            return const DashBoardScreen();
           }
           return const LoginScreen();
         },

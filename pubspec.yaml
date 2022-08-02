@@ -36,6 +36,8 @@ dependencies:
   geolocator: ^9.0.1
   geocoding: ^2.0.4
   fluttertoast: ^8.0.9
+  internet_connection_checker: ^0.0.1+4
+  connectivity_plus: ^2.3.6
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -45,6 +47,14 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.9.3
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/logo.png"
+  adaptive_icon_background: "#003366"
+  adaptive_icon_forground: "assets/images/logo.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
