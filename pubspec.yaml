@@ -63,6 +63,7 @@ flutter_icons:
   image_path: "assets/images/logo.png"
   adaptive_icon_background: "#003366"
   adaptive_icon_forground: "assets/images/logo.png"
+  
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
