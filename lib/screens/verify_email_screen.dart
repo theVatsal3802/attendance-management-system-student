@@ -31,8 +31,6 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
         const Duration(seconds: 3),
         (_) => checkEmailVerified(),
       );
-    } else {
-      Navigator.of(context).pushReplacementNamed(DashBoardScreen.routeName);
     }
   }
 

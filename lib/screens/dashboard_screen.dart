@@ -5,10 +5,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:geolocator/geolocator.dart';
 
 import '../widgets/custom_tab_button.dart';
@@ -160,12 +160,17 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
   Future _scanQR(String name) async {
     try {
-      String? cameraScanResult = await scanner.scan();
+      String? cameraScanResult = await FlutterBarcodeScanner.scanBarcode(
+        "#003366",
+        "Cancel",
+        false,
+        ScanMode.QR,
+      );
       setState(() {
-        result = cameraScanResult!;
+        result = cameraScanResult;
       });
       String month = DateHelper().setMonth(DateTime.now().month.toString());
-      String teacherName = cameraScanResult!.substring(17);
+      String teacherName = cameraScanResult.substring(17);
       String subject = cameraScanResult.substring(0, 6);
       String batch = cameraScanResult.substring(8, 15);
       final userData = await FirebaseFirestore.instance

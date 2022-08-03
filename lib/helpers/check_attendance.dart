@@ -9,11 +9,11 @@ class CheckAttendance {
     bool present = false;
     await getTeacherData(cameraScanResult, month);
     int hour = int.parse(time.substring(0, 2));
-    int minute = int.parse(time.substring(3, 5));
+    int minute = int.parse(time.substring(3));
     String teacherTime = await teacherData!.get("Attendance Started at");
     String teacherLocation = await teacherData!.get("location");
     int teacherHour = int.parse(teacherTime.substring(0, 2));
-    int teacherMinute = int.parse(teacherTime.substring(3, 5));
+    int teacherMinute = int.parse(teacherTime.substring(3));
     if (hour <= teacherHour &&
         minute <= teacherMinute &&
         location == teacherLocation) {

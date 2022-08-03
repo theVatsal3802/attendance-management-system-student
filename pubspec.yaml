@@ -29,7 +29,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  qrscan: ^0.3.2
+  flutter_barcode_scanner: ^2.0.0
   cloud_firestore: ^3.4.1
   firebase_auth: ^3.5.1
   firebase_core: ^1.20.0
