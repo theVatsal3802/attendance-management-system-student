@@ -40,7 +40,10 @@ class _AllSubjectScreenState extends State<AllSubjectScreen> {
               "No Attendance Taken on specified day",
               textScaleFactor: 1,
             ),
-            content: const Text("Please change the date and try again"),
+            content: const Text(
+              "Please change the date and try again",
+              textScaleFactor: 1,
+            ),
             actions: [
               TextButton(
                 onPressed: () {
