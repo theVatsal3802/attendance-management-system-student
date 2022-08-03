@@ -48,9 +48,10 @@ class _AttendanceRecordScreenState extends State<AttendanceRecordScreen> {
                       enableSuggestions: true,
                       autocorrect: true,
                       decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.all(10),
-                          hintText: "Enter the subject Code"),
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.all(10),
+                        hintText: "Enter the subject Code",
+                      ),
                     ),
                   ),
                   const VerticalSizedBox(height: 10),
