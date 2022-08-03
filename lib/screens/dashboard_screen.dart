@@ -191,6 +191,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           "teacher": teacherName,
           "location": currentAddress,
           "marked at": "${DateTime.now().hour}:${DateTime.now().minute}",
+          "status": false,
         },
       );
     } catch (e) {
