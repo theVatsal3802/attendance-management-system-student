@@ -167,35 +167,37 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         false,
         ScanMode.QR,
       );
-      setState(() {
-        result = cameraScanResult;
-        scanned = true;
-      });
-      String month = DateHelper().setMonth(DateTime.now().month.toString());
-      String teacherName = cameraScanResult.substring(17);
-      String subject = cameraScanResult.substring(0, 6);
-      String batch = cameraScanResult.substring(8, 15);
-      final userData = await FirebaseFirestore.instance
-          .collection("users")
-          .doc(user!.uid)
-          .get();
-      await _determinePosition();
-      await FirebaseFirestore.instance
-          .collection(batch)
-          .doc(user!.email!.substring(0, 12))
-          .collection("${DateTime.now().day} $month, ${DateTime.now().year}")
-          .doc(subject)
-          .set(
-        {
-          "name": userData["name"],
-          "date":
-              "${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}",
-          "teacher": teacherName,
-          "location": currentAddress,
-          "marked at": "${DateTime.now().hour}:${DateTime.now().minute}",
-          "status": false,
-        },
-      );
+      if (cameraScanResult.isEmpty) {
+        setState(() {
+          result = cameraScanResult;
+          scanned = true;
+        });
+        String month = DateHelper().setMonth(DateTime.now().month.toString());
+        String teacherName = cameraScanResult.substring(17);
+        String subject = cameraScanResult.substring(0, 6);
+        String batch = cameraScanResult.substring(8, 15);
+        final userData = await FirebaseFirestore.instance
+            .collection("users")
+            .doc(user!.uid)
+            .get();
+        await _determinePosition();
+        await FirebaseFirestore.instance
+            .collection(batch)
+            .doc(user!.email!.substring(0, 12))
+            .collection("${DateTime.now().day} $month, ${DateTime.now().year}")
+            .doc(subject)
+            .set(
+          {
+            "name": userData["name"],
+            "date":
+                "${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}",
+            "teacher": teacherName,
+            "location": currentAddress,
+            "marked at": "${DateTime.now().hour}:${DateTime.now().minute}",
+            "status": false,
+          },
+        );
+      }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -212,23 +214,25 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         ),
       );
     } finally {
-      String month = DateHelper().setMonth(DateTime.now().month.toString());
-      await CheckAttendance()
-          .getAttendanceData(
-        user!,
-        "${DateTime.now().hour}:${DateTime.now().minute}",
-        currentAddress,
-        result,
-        month,
-      )
-          .then(
-        (_) {
-          Navigator.of(context).pushNamed(
-            ConfirmQRScanScreen.routeName,
-            arguments: result,
-          );
-        },
+      if (result.isNotEmpty) {
+  String month = DateHelper().setMonth(DateTime.now().month.toString());
+  await CheckAttendance()
+      .getAttendanceData(
+    user!,
+    "${DateTime.now().hour}:${DateTime.now().minute}",
+    currentAddress,
+    result,
+    month,
+  )
+      .then(
+    (_) {
+      Navigator.of(context).pushNamed(
+        ConfirmQRScanScreen.routeName,
+        arguments: result,
       );
+    },
+  );
+}
     }
   }
 
@@ -281,7 +285,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const CircularProgressIndicator.adaptive(),
-                        const VerticalSizedBox(height: 20,),
+                        const VerticalSizedBox(
+                          height: 20,
+                        ),
                         Text(
                           "Sending Your attendance for evaluation",
                           textScaleFactor: 1,
