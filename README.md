@@ -1,16 +1,16 @@
-# attendance_iiitkota
+# Attendance Management System
 
-A new Flutter project.
+## Intro
+Taking attendance of around 120 students in a class is a very tedious task the professors have to complete. <br/>
+It is now simplified by using this Attendance App made using Flutter as the main technology and Firebase as the backend.
 
-## Getting Started
+## Features
+The app is easy to use for students as well as teachers.<br/>
+Simply Signup using the college id credentials and then sac the QR Code generated in the teacher's app to mark the attendance.<br/>
+The app also checks for the location of the student as well teachers and also the time of marking of attendance by the student and the time during which the teacher took the attendance to prevent false attendance.<br/>
+The app automatcially assigns absent status to students who do not match the location and timing criteria.<br/>
+The Students can also see their attendance status date-wise and subject-wise after marking the attendance and edit their profile names.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Download Link
+Download the Android app through this link<br/>
+[Attendance App for Students - Android only](https://drive.google.com/drive/folders/1VYMDpKlAJcBHzbUdacVwLns_x9oF-oet?usp=sharing)
