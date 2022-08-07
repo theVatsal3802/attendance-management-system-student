@@ -21,9 +21,23 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   String name = "";
   String email = "";
+  String batch = "";
   String password = "";
   bool _isLogin = true;
   bool _isLoading = false;
+
+  void setBatch(String id) {
+    String branch = "";
+    String year = id.substring(0, 4);
+    if (id.trim().toLowerCase().contains("kucp")) {
+      branch = "CSE";
+    } else {
+      branch = "ECE";
+    }
+    setState(() {
+      batch = branch + year;
+    });
+  }
 
   void _submitForm() async {
     FocusScope.of(context).unfocus();
@@ -44,6 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
         );
         Navigator.of(context).pushReplacementNamed(DashBoardScreen.routeName);
       } else {
+        setBatch(email);
         userCredential =
             await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email.trim().toLowerCase(),
@@ -56,6 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
           {
             "name": name,
             "email": email,
+            "batch": batch,
           },
         ).then(
           (_) => Navigator.of(context)

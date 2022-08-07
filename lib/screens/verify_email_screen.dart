@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import './dashboard_screen.dart';
-import './get_details_screens.dart';
 import '../helpers/space_helpers.dart';
 
 class VerifyEmailScreen extends StatefulWidget {
@@ -98,8 +97,6 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
           ),
         ),
       );
-    } finally {
-      Navigator.of(context).pushReplacementNamed(GetDetailsScreen.routeName);
     }
   }
 

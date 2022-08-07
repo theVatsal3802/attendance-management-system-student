@@ -8,7 +8,6 @@ import './screens/login_screen.dart';
 import './screens/verify_email_screen.dart';
 import './screens/splash_screen.dart';
 import './screens/confirm_qr_scan_screen.dart';
-import 'screens/get_details_screens.dart';
 import './screens/attendance_record_screen.dart';
 import './screens/all_subject_screen.dart';
 import './screens/edit_profile_screen.dart';
@@ -61,8 +60,7 @@ class MyApp extends StatelessWidget {
         VerifyEmailScreen.routeName: (context) => const VerifyEmailScreen(),
         DashBoardScreen.routeName: (context) => const DashBoardScreen(),
         LoginScreen.routeName: (context) => const LoginScreen(),
-        ConfirmQRScanScreen.routeName: (context) => const ConfirmQRScanScreen(),
-        GetDetailsScreen.routeName: (context) => const GetDetailsScreen(),
+        ConfirmQRScanScreen.routeName: (context) => const ConfirmQRScanScreen(),  
         AttendanceRecordScreen.routeName: (context) =>
             const AttendanceRecordScreen(),
         AllSubjectScreen.routeName: (context) => const AllSubjectScreen(),
