@@ -215,24 +215,24 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
       );
     } finally {
       if (result.isNotEmpty) {
-  String month = DateHelper().setMonth(DateTime.now().month.toString());
-  await CheckAttendance()
-      .getAttendanceData(
-    user!,
-    "${DateTime.now().hour}:${DateTime.now().minute}",
-    currentAddress,
-    result,
-    month,
-  )
-      .then(
-    (_) {
-      Navigator.of(context).pushNamed(
-        ConfirmQRScanScreen.routeName,
-        arguments: result,
-      );
-    },
-  );
-}
+        String month = DateHelper().setMonth(DateTime.now().month.toString());
+        await CheckAttendance()
+            .getAttendanceData(
+          user!,
+          "${DateTime.now().hour}:${DateTime.now().minute}",
+          currentAddress,
+          result,
+          month,
+        )
+            .then(
+          (_) {
+            Navigator.of(context).pushNamed(
+              ConfirmQRScanScreen.routeName,
+              arguments: result,
+            );
+          },
+        );
+      }
     }
   }
 
@@ -247,8 +247,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
           );
         }
         return Scaffold(
