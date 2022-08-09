@@ -167,7 +167,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         false,
         ScanMode.QR,
       );
-      if (cameraScanResult.isEmpty) {
+      if (cameraScanResult.isNotEmpty) {
         setState(() {
           result = cameraScanResult;
           scanned = true;
@@ -214,21 +214,53 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         ),
       );
     } finally {
-      if (result.isNotEmpty) {
-        String month = DateHelper().setMonth(DateTime.now().month.toString());
-        await CheckAttendance()
-            .getAttendanceData(
-          user!,
-          "${DateTime.now().hour}:${DateTime.now().minute}",
-          currentAddress,
-          result,
-          month,
-        )
-            .then(
-          (_) {
-            Navigator.of(context).pushNamed(
-              ConfirmQRScanScreen.routeName,
-              arguments: result,
+      try {
+        if (result.isNotEmpty) {
+          String month = DateHelper().setMonth(DateTime.now().month.toString());
+          await CheckAttendance()
+              .getAttendanceData(
+            user!,
+            "${DateTime.now().hour}:${DateTime.now().minute}",
+            currentAddress,
+            result,
+            month,
+          )
+              .then(
+            (_) {
+              Navigator.of(context).pushNamed(
+                ConfirmQRScanScreen.routeName,
+                arguments: result,
+              );
+            },
+          );
+        }
+      } catch (error) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text(
+                "An Error Occurred",
+                textScaleFactor: 1,
+              ),
+              content: const Text(
+                "You scanned an invalid QR Code! Please Try again.",
+                textScaleFactor: 1,
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      scanned = false;
+                    });
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text(
+                    "OK",
+                    textScaleFactor: 1,
+                  ),
+                ),
+              ],
             );
           },
         );
