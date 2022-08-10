@@ -16,8 +16,8 @@ class CheckAttendance {
     int teacherColon = teacherTime.indexOf(":");
     int teacherHour = int.parse(teacherTime.substring(0, teacherColon));
     int teacherMinute = int.parse(teacherTime.substring(teacherColon + 1));
-    if (hour <= teacherHour &&
-        minute <= teacherMinute &&
+    if (((hour == teacherHour && minute >= teacherMinute) ||
+            (hour == teacherHour + 1 && minute <= teacherMinute)) &&
         location == teacherLocation) {
       present = true;
     }
